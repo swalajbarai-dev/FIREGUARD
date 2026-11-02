@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FIREGUARD | Forest Fire Monitoring</title>
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <div class="brand">🔥 FIREGUARD</div>
+      <div class="subtitle">Forest Fire Early Detection & Alert System</div>
+    </div>
+    <div id="connection" class="status online">● SYSTEM ONLINE</div>
+  </header>
+
+  <main class="container">
+    <section class="cards">
+      <div class="card">
+        <div class="icon">🌡️</div>
+        <div class="label">TEMPERATURE</div>
+        <div class="value"><span id="temperature">--</span><small> °C</small></div>
+      </div>
+
+      <div class="card">
+        <div class="icon">💧</div>
+        <div class="label">HUMIDITY</div>
+        <div class="value"><span id="humidity">--</span><small> %</small></div>
+      </div>
+
+      <div class="card">
+        <div class="icon">💨</div>
+        <div class="label">SMOKE / GAS</div>
+        <div class="value"><span id="smoke">--</span></div>
+      </div>
+
+      <div id="fireCard" class="card fire-card safe">
+        <div class="icon">🔥</div>
+        <div class="label">FIRE STATUS</div>
+        <div id="fireStatus" class="fire-value">SAFE</div>
+      </div>
+    </section>
+
+    <section class="grid">
+      <div class="panel map-panel">
+        <div class="panel-title">
+          <span>🗺️ LIVE FIRE LOCATION</span>
+          <span id="mapStatus" class="mini-status">Waiting for GPS</span>
+        </div>
+        <div id="map"></div>
+      </div>
+
+      <div class="panel location-panel">
+        <div class="panel-title">📍 GPS LOCATION</div>
+
+        <div class="coord">
+          <span>Latitude</span>
+          <strong id="latitude">--</strong>
+        </div>
+
+        <div class="coord">
+          <span>Longitude</span>
+          <strong id="longitude">--</strong>
+        </div>
+
+        <a id="googleMaps" class="map-button" href="#" target="_blank" rel="noopener">
+          Open in Google Maps ↗
+        </a>
+
+        <div class="last-update">
+          <span>Last updated</span>
+          <strong id="updated">--</strong>
+        </div>
+
+        <div class="thresholds">
+          <div><span>🔥 Fire threshold</span><b>Configured in ESP32</b></div>
+          <div><span>💨 Smoke</span><b>Live sensor value</b></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="alertBox" class="alert hidden">
+      <div class="alert-icon">⚠️</div>
+      <div>
+        <strong>FIRE ALERT</strong>
+        <p>High-risk condition detected. Check the live GPS location immediately.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    FIREGUARD • ESP32 + DHT11 + MQ2 + GPS NEO-6M + LoRa
+  </footer>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
